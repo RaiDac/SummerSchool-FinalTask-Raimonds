@@ -7,6 +7,13 @@ public class Employee {
     private String surname;
     private Role role;
 
+    public Employee(String name, String surname, Role role) {
+        id = counter++;
+        setName(name);
+        setSurname(surname);
+        this.role = role;
+    }
+
     protected int getId() {
         return id;
     }
