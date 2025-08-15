@@ -61,15 +61,17 @@ public class Main {
 
             switch (input){
                 case 1:
-                    //TODO: display all the employee info here
+                    System.out.println(manager.getEmployees());
                     break;
 
                 case 2:
                     System.out.println("Enter name: ");
                     String nameChoice = scanner.next();
 
-                    //TODO: continue with the above example and ask user for surname
+                    System.out.println("Enter surname: ");
+                    String surnameChoice = scanner.next();
 
+                    String roleChoice = getRole(scanner);
                     //TODO: finish creating an employee by asking user for a role and finally add the employee to the employee manager
                     // Remember: ideally you want to handle the exception for when user enters an invalid role
                     // in which case he is informed about the error he made and can retry
@@ -77,18 +79,40 @@ public class Main {
 
                 case 3:
                     System.out.println("Remove employee with ID: ");
+                    int idChoice = scanner.nextInt();
+
+                    if (manager.removeEmployee(idChoice)) {
+                        System.out.println("Employee with id " + idChoice + " has been successfully removed.");
+                    }
+                    else {
+                        System.out.println("Employee with id " + idChoice + " does not exist.");
+                    }
                     //TODO: remove the employee and inform the user if it was successful or not
                     break;
 
                 case 4:
-                    System.out.println("Enter role for which to display all employees: ");
+                    String specificRoleChoice = getRole(scanner);
+                    manager.printAllEmployeeInfoByRole(specificRoleChoice);
                     //TODO: implement user input for role and then display all employees for the specified role
                     break;
 
                 case 5:
                     //TODO: implement exit mechanism
+                    exit = true;
                     break;
             }
         }
+    }
+
+    private static String getRole(Scanner scanner) {
+        String roleChoice;
+
+        do {
+            printAllRoles();
+            System.out.println("Enter role: ");
+            roleChoice = scanner.next();
+        } while (!roleChoice.equals(Role.QA.name()) && !roleChoice.equals(Role.DEV.name()) && !roleChoice.equals(Role.HR.name()));
+
+        return roleChoice;
     }
 }
