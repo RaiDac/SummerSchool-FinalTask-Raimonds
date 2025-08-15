@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class EmployeeManager {
 
-    ArrayList<Employee> employees = new ArrayList<>();
+    ArrayList<Employee> employees = new ArrayList<Employee>();
 
     //TODO: add constructor here
 
