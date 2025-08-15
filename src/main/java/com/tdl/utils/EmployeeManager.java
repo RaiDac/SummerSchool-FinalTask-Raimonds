@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class EmployeeManager {
 
-    //TODO: add attributes here
+    ArrayList<Employee> employees = new ArrayList<>();
 
     //TODO: add constructor here
 
