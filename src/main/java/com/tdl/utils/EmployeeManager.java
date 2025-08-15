@@ -6,7 +6,9 @@ public class EmployeeManager {
 
     ArrayList<Employee> employees = new ArrayList<Employee>();
 
-    //TODO: add constructor here
+    public EmployeeManager() {
+
+    }
 
     private String getEmployeeInfo(Employee e) {
         return "[Employee - id: " + e.getId() + " name: '"
