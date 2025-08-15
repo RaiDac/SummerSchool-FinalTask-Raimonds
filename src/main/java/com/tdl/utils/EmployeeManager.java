@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class EmployeeManager {
 
-    ArrayList<Employee> employees = new ArrayList<Employee>();
+    private ArrayList<Employee> employees = new ArrayList<Employee>();
 
     public EmployeeManager() {
 
@@ -16,7 +16,6 @@ public class EmployeeManager {
     }
 
     public ArrayList<Employee> getEmployees() {
-        printAllEmployeeInfo();
         return employees;
     }
 
