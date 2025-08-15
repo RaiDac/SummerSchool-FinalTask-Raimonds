@@ -61,7 +61,7 @@ public class Main {
 
             switch (input){
                 case 1:
-                    System.out.println(manager.getEmployees());
+                    manager.printAllEmployeeInfo();
                     break;
 
                 case 2:
