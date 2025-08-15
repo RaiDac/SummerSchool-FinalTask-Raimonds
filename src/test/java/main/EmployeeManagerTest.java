@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Collections;
 
 public class EmployeeManagerTest {
 
@@ -24,11 +25,14 @@ public class EmployeeManagerTest {
         method.setAccessible(true);
 
         //TODO: create the necessary instances for unit test here
-
+        EmployeeManager manager = new EmployeeManager();
+        Employee employee = new Employee("Test", "Test", Role.DEV);
         // bellow variables are casted - (int) appended due to method.invoke() returning an Object not int
         // we know that getId() returns an int, so we can successfully cast it to an int
         int id = (int) method.invoke(employee); //we call the method (remember its getID() on the instance of the object that we pass to the invocation
+        manager.removeEmployee(id);
 
         //TODO: complete the unit tests by adding asserts
+        assertEquals(Collections.EMPTY_LIST, manager.getEmployees());
     }
 }
