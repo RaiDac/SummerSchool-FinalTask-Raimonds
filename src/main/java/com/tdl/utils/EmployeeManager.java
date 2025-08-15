@@ -10,11 +10,6 @@ public class EmployeeManager {
 
     }
 
-    private String getEmployeeInfo(Employee e) {
-        return "[Employee - id: " + e.getId() + " name: '"
-                + e.getName() + "' surname: '" + e.getSurname() + "' role: " + e.getRole().name() + "]";
-    }
-
     public ArrayList<Employee> getEmployees() {
         return employees;
     }
@@ -37,7 +32,7 @@ public class EmployeeManager {
     public void printAllEmployeeInfo(){
         System.out.println(" ===== Employees ====");
         for (Employee e: this.employees) {
-            System.out.println(getEmployeeInfo(e));
+            System.out.println(e);
         }
         System.out.println(" ====================");
     }
@@ -46,7 +41,7 @@ public class EmployeeManager {
         System.out.println(" ===== " + role + " ====");
         for (Employee e: this.employees) {
             if (e.getRole().name().equals(role))
-                System.out.println(getEmployeeInfo(e));
+                System.out.println(e);
         }
         System.out.println(" ====================");
     }

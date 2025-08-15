@@ -37,4 +37,10 @@ public class Employee {
     protected void setSurname(String newSurname) {
         surname = newSurname;
     }
+
+    @Override
+    public String toString() {
+        return "[Employee - id: " + getId() + " name: '"
+                + getName() + "' surname: '" + getSurname() + "' role: " + getRole().name() + "]";
+    }
 }
