@@ -16,15 +16,23 @@ public class EmployeeManager {
     }
 
     public ArrayList<Employee> getEmployees() {
-        //TODO: implement functionality
+        printAllEmployeeInfo();
+        return employees;
     }
 
     public void addEmployee(Employee e) {
-        //TODO: implement functionality
+        employees.add(e);
     }
 
     public boolean removeEmployee(int id) {
-        //TODO: implement functionality
+        for (Employee employee : employees) {
+            if (employee.getId() == id) {
+                employees.remove(employee);
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void printAllEmployeeInfo(){
