@@ -115,23 +115,29 @@ public class Main {
         }
     }
 
+    private static boolean isValidOption(String input) {
+        final int MAX_NUMBER = 5;
+
+        try {
+            int number = Integer.parseInt(input);
+            return number >= 1 && number <= MAX_NUMBER;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
     private static int getUserOption(Scanner scanner, String invalidOptionMessage, String options) {
-        while (true) {
-            String input = scanner.nextLine().trim();
+        String input;
 
-            try {
-                int number = Integer.parseInt(input);
+        do {
+            input = scanner.nextLine().trim();
 
-                if (number >= 1 && number <= 5) {
-                    return number;
-                } else {
-                    System.out.println(invalidOptionMessage + options);
-                }
-            }
-            catch (NumberFormatException e) {
+            if (!isValidOption(input)) {
                 System.out.println(invalidOptionMessage + options);
             }
-        }
+        } while (!isValidOption(input));
+
+        return Integer.parseInt(input);
     }
 
     private static Role getRole(Scanner scanner) {
