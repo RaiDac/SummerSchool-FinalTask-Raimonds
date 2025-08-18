@@ -140,19 +140,29 @@ public class Main {
         return Integer.parseInt(input);
     }
 
+    private static boolean isValidRole(String roleChoice) {
+        try {
+            getRoleByInput(roleChoice);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
+
     private static Role getRole(Scanner scanner) {
         final String INVALID_ROLE_MESSAGE = "Invalid role! Please enter one of the listed roles.\n";
+        String roleChoice;
 
-        while (true) {
+        do {
             printAllRoles();
             System.out.println("Enter role: ");
-            String roleChoice = scanner.nextLine().trim().toUpperCase();
+            roleChoice = scanner.nextLine().trim().toUpperCase();
 
-            try {
-                return getRoleByInput(roleChoice);
-            } catch (IllegalArgumentException e) {
+            if (!isValidRole(roleChoice)) {
                 System.out.println(INVALID_ROLE_MESSAGE);
             }
-        }
+        } while (!isValidRole(roleChoice));
+
+        return getRoleByInput(roleChoice);
     }
 }
