@@ -12,7 +12,6 @@ public class EmployeeManagerTest {
 
     @Test
     public void testAddEmployee() {
-        //TODO: implement the unit test for addEmployee() function
         Employee employee = new Employee("Test", "Test", Role.QA);
         EmployeeManager manager = new EmployeeManager();
 
@@ -30,7 +29,6 @@ public class EmployeeManagerTest {
         Method method = Employee.class.getDeclaredMethod("getId");
         method.setAccessible(true);
 
-        //TODO: create the necessary instances for unit test here
         EmployeeManager manager = new EmployeeManager();
         Employee employee1 = new Employee("Test", "Test", Role.DEV);
         Employee employee2 = new Employee("Test2", "Test2", Role.HR);
@@ -43,7 +41,6 @@ public class EmployeeManagerTest {
 
         manager.removeEmployee(id);
 
-        //TODO: complete the unit tests by adding asserts
         assertEquals(1, manager.getEmployees().size());
         assertFalse(manager.getEmployees().contains(employee1));
         assertTrue(manager.getEmployees().contains(employee2));
