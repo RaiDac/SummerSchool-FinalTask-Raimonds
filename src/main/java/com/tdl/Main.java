@@ -116,11 +116,11 @@ public class Main {
     }
 
     private static boolean isValidOption(String input) {
-        final int MAX_NUMBER = 5;
+        final int MAX_MENU_NUMBER = 5;
 
         try {
             int number = Integer.parseInt(input);
-            return number >= 1 && number <= MAX_NUMBER;
+            return number >= 1 && number <= MAX_MENU_NUMBER;
         } catch (NumberFormatException e) {
             return false;
         }
