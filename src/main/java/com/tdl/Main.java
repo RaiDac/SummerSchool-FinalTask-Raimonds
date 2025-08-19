@@ -8,7 +8,15 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
-
+    private static final String ADD_EMPLOYEE_SUCCESS_MESSAGE = "Employee was successfully added.";
+    private static final String EXIT_MESSAGE = "You've successfully exited the application.\n";
+    private static final String INVALID_ROLE_MESSAGE = "Invalid role! Please enter one of the listed roles.\n";
+    private static final String INVALID_OPTION_MESSAGE = "\n ==== Invalid option. Please enter one of the following OPTIONS.\n";
+    private static final String OPTIONS = "\n1. View all employees \n2. Add new employee" +
+            "\n3. Remove employee \n4. View all employees in role \n5. EXIT\n\n";
+    private static final String REMOVE_SUCCESS_MESSAGE = "Employee with id %d has been successfully removed.";
+    private static final String REMOVE_NOT_FOUND_MESSAGE = "Employee with id %d does not exist.";
+    private static final String REMOVE_INVALID_ID_MESSAGE = "Invalid ID format! The ID should consist of a whole number.\n";
     /**
      Print the enum values so that they can be displayed in console/terminal output
      */
@@ -43,9 +51,6 @@ public class Main {
     public static void main(String[] args) {
         boolean exit = false;
 
-        final String INVALID_OPTION_MESSAGE = "\n ==== Invalid option. Please enter one of the following OPTIONS.\n";
-        final String OPTIONS = "\n1. View all employees \n2. Add new employee" +
-                "\n3. Remove employee \n4. View all employees in role \n5. EXIT\n\n";
         final String WELCOME_MESSAGE = "\n ==== Hello, what would you like to do?\n";
         Scanner scanner = new Scanner(System.in);
 
@@ -57,7 +62,7 @@ public class Main {
 
         while (!exit) {
             System.out.println(WELCOME_MESSAGE + OPTIONS);
-            int input = getUserOption(scanner, INVALID_OPTION_MESSAGE, OPTIONS);
+            int input = getUserOption(scanner);
 
             switch (input) {
                 case 1:
@@ -65,54 +70,38 @@ public class Main {
                     break;
 
                 case 2:
-                    //TODO: finish creating an employee by asking user for a role and finally add the employee to the employee manager
-                    // Remember: ideally you want to handle the exception for when user enters an invalid role
-                    // in which case he is informed about the error he made and can retry
-                    System.out.println("Enter name: ");
-                    String nameChoice = scanner.nextLine();
-
-                    System.out.println("Enter surname: ");
-                    String surnameChoice = scanner.nextLine();
-
-                    Role roleChoice = getRole(scanner);
-
-                    manager.addEmployee(new Employee(nameChoice, surnameChoice, roleChoice));
-                    System.out.println("Employee was successfully added.");
+                    addEmployee(scanner, manager);
                     break;
 
                 case 3:
-                    //TODO: remove the employee and inform the user if it was successful or not
-                    System.out.println("Remove employee with ID: ");
-                    String choice = scanner.nextLine().trim();
-
-                    try {
-                        int idChoice = Integer.parseInt(choice);
-
-                        if (manager.removeEmployee(idChoice)) {
-                            System.out.println("Employee with id " + idChoice + " has been successfully removed.");
-                        }
-                        else {
-                            System.out.println("Employee with id " + idChoice + " does not exist.");
-                        }
-                    }
-                    catch (Exception e) {
-                        System.out.print("Invalid ID format! The ID should consist of a whole number.\n");
-                    }
+                    removeEmployee(scanner, manager);
                     break;
 
                 case 4:
-                    //TODO: implement user input for role and then display all employees for the specified role
                     Role specificRoleChoice = getRole(scanner);
                     manager.printAllEmployeeInfoByRole(specificRoleChoice.name());
                     break;
 
                 case 5:
-                    //TODO: implement exit mechanism
                     exit = true;
-                    System.out.print("You've successfully exited the application.\n");
+                    System.out.print(EXIT_MESSAGE);
                     break;
             }
         }
+    }
+
+    private static int getUserOption(Scanner scanner) {
+        String input;
+
+        do {
+            input = scanner.nextLine().trim();
+
+            if (!isValidOption(input)) {
+                System.out.println(INVALID_OPTION_MESSAGE + OPTIONS);
+            }
+        } while (!isValidOption(input));
+
+        return Integer.parseInt(input);
     }
 
     private static boolean isValidOption(String input) {
@@ -126,43 +115,51 @@ public class Main {
         }
     }
 
-    private static int getUserOption(Scanner scanner, String invalidOptionMessage, String options) {
-        String input;
+    private static void addEmployee(Scanner scanner, EmployeeManager manager) {
+        System.out.println("Enter name: ");
+        String nameChoice = scanner.nextLine();
 
-        do {
-            input = scanner.nextLine().trim();
+        System.out.println("Enter surname: ");
+        String surnameChoice = scanner.nextLine();
 
-            if (!isValidOption(input)) {
-                System.out.println(invalidOptionMessage + options);
-            }
-        } while (!isValidOption(input));
+        Role roleChoice = getRole(scanner);
 
-        return Integer.parseInt(input);
+        manager.addEmployee(new Employee(nameChoice, surnameChoice, roleChoice));
+        System.out.println(ADD_EMPLOYEE_SUCCESS_MESSAGE);
     }
 
-    private static boolean isValidRole(String roleChoice) {
+    private static void removeEmployee(Scanner scanner, EmployeeManager manager) {
+        System.out.println("Remove employee with ID: ");
+        String choice = scanner.nextLine().trim();
+
         try {
-            getRoleByInput(roleChoice);
-            return true;
-        } catch (IllegalArgumentException e) {
-            return false;
+            int idChoice = Integer.parseInt(choice);
+
+            if (manager.removeEmployee(idChoice)) {
+                System.out.printf((REMOVE_SUCCESS_MESSAGE) + "%n", idChoice);
+            }
+            else {
+                System.out.printf((REMOVE_NOT_FOUND_MESSAGE) + "%n", idChoice);
+            }
+        }
+        catch (Exception e) {
+            System.out.print(REMOVE_INVALID_ID_MESSAGE);
         }
     }
 
     private static Role getRole(Scanner scanner) {
-        final String INVALID_ROLE_MESSAGE = "Invalid role! Please enter one of the listed roles.\n";
         String roleChoice;
 
-        do {
+        while (true) {
             printAllRoles();
             System.out.println("Enter role: ");
             roleChoice = scanner.nextLine().trim().toUpperCase();
 
-            if (!isValidRole(roleChoice)) {
+            try {
+                return getRoleByInput(roleChoice);
+            } catch (IllegalArgumentException e) {
                 System.out.println(INVALID_ROLE_MESSAGE);
             }
-        } while (!isValidRole(roleChoice));
-
-        return getRoleByInput(roleChoice);
+        }
     }
 }
