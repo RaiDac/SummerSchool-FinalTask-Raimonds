@@ -10,13 +10,14 @@ import java.util.Scanner;
 public class Main {
     private static final String ADD_EMPLOYEE_SUCCESS_MESSAGE = "Employee was successfully added.";
     private static final String EXIT_MESSAGE = "You've successfully exited the application.\n";
-    private static final String INVALID_ROLE_MESSAGE = "Invalid role! Please enter one of the listed roles.\n\n";
     private static final String INVALID_OPTION_MESSAGE = "\n ==== Invalid option. Please enter one of the following OPTIONS.\n";
+    private static final String INVALID_ROLE_MESSAGE = "Invalid role! Please enter one of the listed roles.\n\n";
     private static final String OPTIONS = "\n1. View all employees \n2. Add new employee" +
             "\n3. Remove employee \n4. View all employees in role \n5. EXIT\n\n";
-    private static final String REMOVE_SUCCESS_MESSAGE = "Employee with id %d has been successfully removed.";
-    private static final String REMOVE_NOT_FOUND_MESSAGE = "Employee with id %d does not exist.";
     private static final String REMOVE_INVALID_ID_MESSAGE = "Invalid ID format! The ID should consist of a whole number.\n";
+    private static final String REMOVE_NOT_FOUND_MESSAGE = "Employee with id %d does not exist.";
+    private static final String REMOVE_SUCCESS_MESSAGE = "Employee with id %d has been successfully removed.";
+    private static final String WELCOME_MESSAGE = "\n ==== Hello, what would you like to do?\n";
     /**
      Print the enum values so that they can be displayed in console/terminal output
      */
@@ -51,7 +52,6 @@ public class Main {
     public static void main(String[] args) {
         boolean exit = false;
 
-        final String WELCOME_MESSAGE = "\n ==== Hello, what would you like to do?\n";
         Scanner scanner = new Scanner(System.in);
 
         Employee employee1 = new Employee("Janis", "Kalnins", Role.QA);
